@@ -375,7 +375,7 @@ int load_single(int time_i, int time_max)
 
     fprintf(message, "%s\n", loadname);
     if ((stations = fopen(loadname,"r")) == NULL) return 1;
-//    if ((stations = fopen("record.log","r")) == NULL) return 1;
+//    if ((stations = fopen("logs/record.log","r")) == NULL) return 1;
 
     adat_be = (struct sender *) malloc(sizeof(struct sender));
 

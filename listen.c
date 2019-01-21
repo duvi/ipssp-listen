@@ -125,7 +125,7 @@ int main(void)
 
 	if (strstr(buf, "show_all"))
 	    {
-	    message=fopen("position.log", "w");
+	    message=fopen("logs/position.log", "w");
 	    list_sta(1);
 	    fclose(message);
 	    talk("done", ntohs(their_addr.sin_port));
@@ -134,7 +134,7 @@ int main(void)
 
 	if (strstr(buf, "list_sta"))
 	    {
-	    message=fopen("position.log", "w");
+	    message=fopen("logs/position.log", "w");
 	    list_sta(0);
 	    fclose(message);
 	    talk("done", ntohs(their_addr.sin_port));
@@ -143,7 +143,7 @@ int main(void)
 
 	if (strstr(buf, "list_pos"))
 	    {
-	    message=fopen("position.log", "w");
+	    message=fopen("logs/position.log", "w");
 	    list_pos();
 	    fclose(message);
 	    talk("done", ntohs(their_addr.sin_port));
@@ -152,7 +152,7 @@ int main(void)
 
 	if (strstr(buf, "show_sta"))
 	    {
-	    message=fopen("position.log", "w");
+	    message=fopen("logs/position.log", "w");
 
 	    sscanf(buf, "%*s %12s ", char_mac);
 	    str2hex(char_mac, in_mac);
@@ -165,7 +165,7 @@ int main(void)
 
 	if (strstr(buf, "del_sta"))
 	    {
-	    message=fopen("position.log", "w");
+	    message=fopen("logs/position.log", "w");
 
 	    sscanf(buf, "%*s %12s ", char_mac);
 	    str2hex(char_mac, in_mac);
@@ -178,7 +178,7 @@ int main(void)
 
 	if (strstr(buf, "record_sta"))
 	    {
-	    message=fopen("position.log", "w");
+	    message=fopen("logs/position.log", "w");
 
 	    sscanf(buf, "%*s %12s ", char_mac);
 	    str2hex(char_mac, in_mac);
@@ -192,7 +192,7 @@ int main(void)
 
 	if (strstr(buf, "rec_sta"))
 	    {
-	    message=fopen("position.log", "w");
+	    message=fopen("logs/position.log", "w");
 		fprintf(message, "Eddigi rogzito MAC " MACSTR "\n", MAC2STR(rec_sta));
 	    sscanf(buf, "%*s %12s ", char_mac);
 	    str2hex(char_mac, rec_sta);
@@ -204,7 +204,7 @@ int main(void)
 
 	if (strstr(buf, "rec_single"))
 	    {
-	    message=fopen("position.log", "w");
+	    message=fopen("logs/position.log", "w");
 		sscanf(buf, "%*s %i %i,%i", &p_record->enabled, &p_record->x, &p_record->y);
 		if (p_record->enabled)
 		    {
@@ -238,7 +238,7 @@ int main(void)
 	    sscanf(buf, "%*s %i ", &pos_newnum);
 	    p_record->num = (pos_newnum - 1);
 
-	    message=fopen("position.log", "w");
+	    message=fopen("logs/position.log", "w");
 	    fprintf(message, "Pozicio rogzites kovetkezo sorszam beallitva: %i \n", (p_record->num + 1));
 	    fclose(message);
 
@@ -248,7 +248,7 @@ int main(void)
 
 	if (strstr(buf, "load_single"))
 	    {
-	    message=fopen("position.log", "w");
+	    message=fopen("logs/position.log", "w");
 	    sscanf(buf, "%*s %*s %i %i ", &time_i, &time_max);
 //	    for (time_i = 1; time_i <= time_max; time_i++)
 //		{
@@ -287,7 +287,7 @@ int main(void)
 
 	if (strstr(buf, "offset"))
 	    {
-	    message=fopen("position.log", "w");
+	    message=fopen("logs/position.log", "w");
 		fprintf(message, "Eddigi offset %i \n", offset);
 	    sscanf(buf, "%*s %i ", &offset);
 		fprintf(message, "Uj offset %i \n", offset);
@@ -300,7 +300,7 @@ int main(void)
 	    {
 	    sscanf(buf, "%s %12s ", command, char_mac);
 	    str2hex(char_mac, in_mac);
-	    message=fopen("position.log", "w");
+	    message=fopen("logs/position.log", "w");
 	    message_str = NULL;
 	    Sasprintf(message_str, "coords ");
 
@@ -417,7 +417,7 @@ int main(void)
 	    {
 	    message_str = NULL;
 	    Sasprintf(message_str, "message ");
-	    message=fopen("position.log", "w");
+	    message=fopen("logs/position.log", "w");
 	    if (load_map(buf))
 		{
 		Sasprintf(message_str, "%sSikertelen betoltes! \n", message_str);
@@ -433,7 +433,7 @@ int main(void)
 
 	if (strstr(buf, "set_session"))
 	    {
-	    message=fopen("position.log", "w");
+	    message=fopen("logs/position.log", "w");
 
 	    sscanf(buf, "%*s %s ", p_record->nev);
 
@@ -460,7 +460,7 @@ int main(void)
 	    struct record_pos *p_load_pos;
 	    p_load_pos = (struct record_pos *) malloc(sizeof(struct record_pos));
 
-	    message=fopen("position.log", "w");
+	    message=fopen("logs/position.log", "w");
 
 	    char adat[25];
 	    char dirname[60];
@@ -499,7 +499,7 @@ int main(void)
 
 	if (strstr(buf, "load_sql"))
 	    {
-	    message=fopen("position.log", "w");
+	    message=fopen("logs/position.log", "w");
 //Memoria es mysql poziciok torlese
 	    message_str = NULL;
 	    Sasprintf(message_str, "Memoria es mysql poziciok torlese:\n");
@@ -590,7 +590,7 @@ int main(void)
 
 	if (strstr(buf, "load_sta"))
 	    {
-	    message=fopen("position.log", "w");
+	    message=fopen("logs/position.log", "w");
 	    if (load_sta(buf))
 		{
 		fprintf(message, "Sikertelen betoltes! \n");
@@ -852,7 +852,7 @@ void *periodic_del()
 
     while (1)
 	{
-	message = fopen("delete.log", "a");
+	message = fopen("logs/delete.log", "a");
 	time(&rawtime);
 	fprintf(message, "TIME: %s", ctime(&rawtime));
 
