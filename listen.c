@@ -762,16 +762,16 @@ void *data_coll()
 	    printf("channel: %i\n",adat_be->channel);
 	    }
 
-	snprintf(sql, sizeof sql, "REPLACE INTO station_data(sta_id,mon_id,signal) VALUES('" MACSTR "','" MACSTR "',%i)", MAC2STR(adat_be->station), MAC2STR(adat_be->monitor), adat_be->signal);
+	snprintf(sql, sizeof sql, "REPLACE INTO `station_data`(`sta_id`,`mon_id`,`signal`) VALUES('" MACSTR "','" MACSTR "',%i)", MAC2STR(adat_be->station), MAC2STR(adat_be->monitor), adat_be->signal);
 	mysql_putx(sql);
 
-//	snprintf(sql, sizeof sql, "REPLACE INTO station_list(sta_id,channel) VALUES('" MACSTR "',%i)", MAC2STR(adat_be->station), adat_be->channel);
-	snprintf(sql, sizeof sql, "INSERT INTO station_list(sta_id,channel,r,g,b) \
+//	snprintf(sql, sizeof sql, "REPLACE INTO `station_list`(`sta_id`,`channel`) VALUES('" MACSTR "',%i)", MAC2STR(adat_be->station), adat_be->channel);
+	snprintf(sql, sizeof sql, "INSERT INTO `station_list`(`sta_id`,`channel`,`r`,`g`,`b`) \
 	                            VALUES('" MACSTR "',%i,FLOOR(RAND()*255),FLOOR(RAND()*255),FLOOR(RAND()*255)) \
-	                            ON DUPLICATE KEY UPDATE time_last=NOW(), channel=%i", MAC2STR(adat_be->station), adat_be->channel, adat_be->channel);
+	                            ON DUPLICATE KEY UPDATE `time_last`=NOW(), `channel`=%i", MAC2STR(adat_be->station), adat_be->channel, adat_be->channel);
 	mysql_putx(sql);
 
-	snprintf(sql, sizeof sql, "REPLACE INTO monitor_data(mon_id,ip) VALUES('" MACSTR "','%s')", MAC2STR(adat_be->monitor), inet_ntoa(their_addr.sin_addr));
+	snprintf(sql, sizeof sql, "REPLACE INTO `monitor_data`(`mon_id`,`ip`) VALUES('" MACSTR "','%s')", MAC2STR(adat_be->monitor), inet_ntoa(their_addr.sin_addr));
 	mysql_putx(sql);
 
 //	beolvas(adat_be, their_addr);
@@ -829,8 +829,8 @@ void *park_coll()
 	    printf("DEBUG_PARK free: 0x%02x\n", adat_be->free);
 	    }
 
-	snprintf(sql, sizeof sql, "REPLACE INTO park_data(park_id,free) VALUES(%c,%c)", adat_be->id, adat_be->free);
-//	snprintf(sql, sizeof sql, "REPLACE INTO park_data(park_id,free) VALUES(%x,%x)", adat_be->id, adat_be->free);
+	snprintf(sql, sizeof sql, "REPLACE INTO `park_data`(`park_id`,`free`) VALUES(%c,%c)", adat_be->id, adat_be->free);
+//	snprintf(sql, sizeof sql, "REPLACE INTO `park_data`(`park_id`,`free`) VALUES(%x,%x)", adat_be->id, adat_be->free);
 	mysql_putx(sql);
 
 	free(adat_be);
@@ -856,18 +856,18 @@ void *periodic_del()
 	time(&rawtime);
 	fprintf(message, "TIME: %s", ctime(&rawtime));
 
-	snprintf(sql, sizeof sql, "SELECT sta_id FROM station_list WHERE time_last < (NOW() - INTERVAL %i SECOND)", DEL_TIMEOUT);
+	snprintf(sql, sizeof sql, "SELECT `sta_id` FROM `station_list` WHERE `time_last` < (NOW() - INTERVAL %i SECOND)", DEL_TIMEOUT);
 	sql_result = mysql_getx(sql);
 
 	while ((row = mysql_fetch_row(sql_result)))
 	    {
 	    fprintf(message, "MAC: %s deleted\n", row[0]);
-	    snprintf(sql, sizeof sql, "DELETE FROM station_data WHERE sta_id = '%s'", row[0]);
+	    snprintf(sql, sizeof sql, "DELETE FROM `station_data` WHERE `sta_id` = '%s'", row[0]);
 	    mysql_putx(sql);
 	    }
 	mysql_free_result(sql_result);
 
-	snprintf(sql, sizeof sql, "DELETE FROM station_list WHERE time_last < (NOW() - INTERVAL %i SECOND)", DEL_TIMEOUT);
+	snprintf(sql, sizeof sql, "DELETE FROM `station_list` WHERE `time_last` < (NOW() - INTERVAL %i SECOND)", DEL_TIMEOUT);
 	mysql_putx(sql);
 
 	fclose(message);

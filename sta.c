@@ -13,7 +13,7 @@ void list_sta(int sta_detail)			//Stationok listazasa
     MYSQL_ROW row;
     MYSQL_ROW sub_row;
 
-    snprintf(sql, sizeof sql, "SELECT sta_id, channel FROM station_list");
+    snprintf(sql, sizeof sql, "SELECT `sta_id`, `channel` FROM `station_list`");
     sql_result = mysql_getx(sql);
 
     while ((row = mysql_fetch_row(sql_result)))
@@ -22,11 +22,11 @@ void list_sta(int sta_detail)			//Stationok listazasa
 
 	if (sta_detail)
 	    {
-	    snprintf(sql, sizeof sql, "SELECT monitor_data.ip, station_data.signal, station_data.time_rcv \
-	                                FROM station_data \
-	                                LEFT JOIN monitor_data \
-	                                ON station_data.mon_id = monitor_data.mon_id \
-	                                WHERE station_data.sta_id = '%s'", row[0]);
+	    snprintf(sql, sizeof sql, "SELECT `monitor_data`.`ip`, `station_data`.`signal`, `station_data`.`time_rcv` \
+	                                FROM `station_data` \
+	                                LEFT JOIN `monitor_data` \
+	                                ON `station_data`.`mon_id` = `monitor_data`.`mon_id` \
+	                                WHERE `station_data`.`sta_id` = '%s'", row[0]);
 	    sql_sub_result = mysql_getx(sql);
 
 	    while ((sub_row = mysql_fetch_row(sql_sub_result)))
@@ -47,18 +47,18 @@ void show_sta(u_char in_mac[MACLEN])		//Egy station kiirasa
     MYSQL_ROW row;
     MYSQL_ROW sub_row;
 
-    snprintf(sql, sizeof sql, "SELECT sta_id, channel FROM station_list WHERE sta_id = '" MACSTR "'", MAC2STR(in_mac));
+    snprintf(sql, sizeof sql, "SELECT `sta_id`, `channel` FROM `station_list` WHERE `sta_id` = '" MACSTR "'", MAC2STR(in_mac));
     sql_result = mysql_getx(sql);
 
     if ((row = mysql_fetch_row(sql_result)))
 	{
 	fprintf(message, "STATION: %s CHANNEL: %s \n", row[0], row[1]);
 
-	snprintf(sql, sizeof sql, "SELECT monitor_data.ip, station_data.signal, station_data.time_rcv \
-	                            FROM station_data \
-	                            LEFT JOIN monitor_data \
-	                            ON station_data.mon_id = monitor_data.mon_id \
-	                            WHERE station_data.sta_id = '%s'", row[0]);
+	snprintf(sql, sizeof sql, "SELECT `monitor_data`.`ip`, `station_data`.`signal`, `station_data`.`time_rcv` \
+	                            FROM `station_data` \
+	                            LEFT JOIN `monitor_data` \
+	                            ON `station_data`.`mon_id` = `monitor_data`.`mon_id` \
+	                            WHERE `station_data`.`sta_id` = '%s'", row[0]);
 	sql_sub_result = mysql_getx(sql);
 
 	while ((sub_row = mysql_fetch_row(sql_sub_result)))

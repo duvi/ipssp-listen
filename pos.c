@@ -50,11 +50,11 @@ void clear_map(void)
 {
     char sql[512];
 
-    snprintf(sql, sizeof sql, "TRUNCATE TABLE position_list");
+    snprintf(sql, sizeof sql, "TRUNCATE TABLE `position_list`");
     mysql_putx(sql);
-    snprintf(sql, sizeof sql, "TRUNCATE TABLE position_data");
+    snprintf(sql, sizeof sql, "TRUNCATE TABLE `position_data`");
     mysql_putx(sql);
-//    snprintf(sql, sizeof sql, "TRUNCATE TABLE monitor_list");
+//    snprintf(sql, sizeof sql, "TRUNCATE TABLE `monitor_list`");
 //    mysql_putx(sql);
 
     struct position_pos *p_temp_pos, *p_prev_pos;
@@ -128,19 +128,19 @@ void list_pos(void)		//Positionok listazasa
     MYSQL_ROW row;
     MYSQL_ROW sub_row;
 
-    snprintf(sql, sizeof sql, "SELECT pos_id, x, y, time_rec FROM position_list");
+    snprintf(sql, sizeof sql, "SELECT `pos_id`, `x`, `y`, `time_rec` FROM `position_list`");
     sql_result = mysql_getx(sql);
 
     while ((row = mysql_fetch_row(sql_result)))
 	{
 	fprintf(message, "POSITION: %s [%s,%s] TIME: %s \n", row[0], row[1] ,row[2], row[3]);
 
-	snprintf(sql, sizeof sql, "SELECT position_data.signal, position_data.mean, position_data.std_dev, monitor_list.ip \
-	                            FROM position_data \
-	                            LEFT JOIN monitor_list \
-	                            ON position_data.mon_id = monitor_list.mon_id \
-	                            WHERE position_data.pos_id = '%s' \
-	                            ORDER BY position_data.mean", row[0]);
+	snprintf(sql, sizeof sql, "SELECT `position_data`.`signal`, `position_data`.`mean`, `position_data`.`std_dev`, `monitor_list`.`ip` \
+	                            FROM `position_data` \
+	                            LEFT JOIN `monitor_list` \
+	                            ON `position_data`.`mon_id` = `monitor_list`.`mon_id` \
+	                            WHERE `position_data`.`pos_id` = '%s' \
+	                            ORDER BY `position_data`.`mean`", row[0]);
 	sql_sub_result = mysql_getx(sql);
 
 	    while ((sub_row = mysql_fetch_row(sql_sub_result)))
@@ -208,11 +208,11 @@ int load_map(char adat[MAXBUFLEN])		//Terkep betoltese
     double mean;
     double std_dev;
 
-    snprintf(sql, sizeof sql, "TRUNCATE TABLE position_list");
+    snprintf(sql, sizeof sql, "TRUNCATE TABLE `position_list`");
     mysql_putx(sql);
-    snprintf(sql, sizeof sql, "TRUNCATE TABLE position_data");
+    snprintf(sql, sizeof sql, "TRUNCATE TABLE `position_data`");
     mysql_putx(sql);
-//    snprintf(sql, sizeof sql, "TRUNCATE TABLE monitor_list");
+//    snprintf(sql, sizeof sql, "TRUNCATE TABLE `monitor_list`");
 //    mysql_putx(sql);
 
     while(fgets(sor, 60, positions) != NULL)
@@ -221,7 +221,7 @@ int load_map(char adat[MAXBUFLEN])		//Terkep betoltese
 	    {
 	    sscanf(strstr(sor, "POSITION:"), "POSITION: %*i [%i,%i] %i ", &x, &y, &time_scan);
 
-	    snprintf(sql, sizeof sql, "INSERT INTO position_list(x,y) VALUES(%i,%i)", x, y);
+	    snprintf(sql, sizeof sql, "INSERT INTO `position_list`(`x`,`y`) VALUES(%i,%i)", x, y);
 	    pos_id = mysql_putx(sql);
 
 	    continue;
@@ -230,10 +230,10 @@ int load_map(char adat[MAXBUFLEN])		//Terkep betoltese
 	    {
 	    sscanf(sor, "%*s %12s %s %i %lf %lf ", char_mac, in_ip, &signal, &mean, &std_dev);
 
-	    snprintf(sql, sizeof sql, "INSERT INTO position_data(pos_id,mon_id,signal,mean,std_dev) \
+	    snprintf(sql, sizeof sql, "INSERT INTO `position_data`(`pos_id`,`mon_id`,`signal`,`mean`,`std_dev`) \
 	                                VALUES(%i,'%s',%i,'%2.4f','%2.4f')", pos_id, char_mac, signal, mean, std_dev);
 	    mysql_putx(sql);
-	    snprintf(sql, sizeof sql, "INSERT INTO monitor_list(mon_id,ip) \
+	    snprintf(sql, sizeof sql, "INSERT INTO `monitor_list`(`mon_id`,`ip`) \
 	                                VALUES('%s','%s')", char_mac, in_ip) ;
 	    mysql_putx(sql);
 
