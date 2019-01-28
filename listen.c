@@ -720,8 +720,6 @@ void *data_coll()
     struct sender *adat_be;
     time(&rec_time);
 
-    char sql[512];
-
     printf("Capture thread started\n");
 
     if ((sockfd = socket(AF_INET, SOCK_DGRAM, 0)) == -1)
@@ -762,19 +760,7 @@ void *data_coll()
 	    printf("channel: %i\n",adat_be->channel);
 	    }
 
-	snprintf(sql, sizeof sql, "REPLACE INTO `station_data`(`sta_id`,`mon_id`,`signal`) VALUES('" MACSTR "','" MACSTR "',%i)", MAC2STR(adat_be->station), MAC2STR(adat_be->monitor), adat_be->signal);
-	mysql_putx(sql);
-
-//	snprintf(sql, sizeof sql, "REPLACE INTO `station_list`(`sta_id`,`channel`) VALUES('" MACSTR "',%i)", MAC2STR(adat_be->station), adat_be->channel);
-	snprintf(sql, sizeof sql, "INSERT INTO `station_list`(`sta_id`,`channel`,`r`,`g`,`b`) \
-	                            VALUES('" MACSTR "',%i,FLOOR(RAND()*255),FLOOR(RAND()*255),FLOOR(RAND()*255)) \
-	                            ON DUPLICATE KEY UPDATE `time_last`=NOW(), `channel`=%i", MAC2STR(adat_be->station), adat_be->channel, adat_be->channel);
-	mysql_putx(sql);
-
-	snprintf(sql, sizeof sql, "REPLACE INTO `monitor_data`(`mon_id`,`ip`) VALUES('" MACSTR "','%s')", MAC2STR(adat_be->monitor), inet_ntoa(their_addr.sin_addr));
-	mysql_putx(sql);
-
-//	beolvas(adat_be, their_addr);
+	beolvas(adat_be, their_addr);
 	free(adat_be);
 	continue;
 	}

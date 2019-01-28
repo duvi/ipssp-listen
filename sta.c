@@ -158,6 +158,23 @@ void record_sta(u_char in_mac[MACLEN])
 	}
 }
 
+void beolvas(struct sender * adat, struct sockaddr_in kuldo)		//Új adat fogadása
+{
+    char sql[512];
+
+    snprintf(sql, sizeof sql, "REPLACE INTO `station_data`(`sta_id`,`mon_id`,`signal`) VALUES('" MACSTR "','" MACSTR "',%i)", MAC2STR(adat->station), MAC2STR(adat->monitor), adat->signal);
+    mysql_putx(sql);
+
+//  snprintf(sql, sizeof sql, "REPLACE INTO `station_list`(`sta_id`,`channel`) VALUES('" MACSTR "',%i)", MAC2STR(adat->station), adat->channel);
+    snprintf(sql, sizeof sql, "INSERT INTO `station_list`(`sta_id`,`channel`,`r`,`g`,`b`) \
+                                VALUES('" MACSTR "',%i,FLOOR(RAND()*255),FLOOR(RAND()*255),FLOOR(RAND()*255)) \
+                                ON DUPLICATE KEY UPDATE `time_last`=NOW(), `channel`=%i", MAC2STR(adat->station), adat->channel, adat->channel);
+    mysql_putx(sql);
+
+    snprintf(sql, sizeof sql, "REPLACE INTO `monitor_data`(`mon_id`,`ip`) VALUES('" MACSTR "','%s')", MAC2STR(adat->monitor), inet_ntoa(kuldo.sin_addr));
+    mysql_putx(sql);
+}
+
 int load_sta(char adat[MAXBUFLEN])
 {
     char loadname[30];
