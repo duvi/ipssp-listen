@@ -75,54 +75,6 @@ void show_sta(u_char in_mac[MACLEN])		//Egy station kiirasa
     mysql_free_result(sql_result);
 }
 
-void del_sta(u_char in_mac[MACLEN])
-{
-    struct station_pos *p_temp_sta, *p_prev_sta;
-    struct monitor_pos *p_temp_mon, *p_prev_mon;
-    p_temp_sta = p_start_sta;
-
-    int megvan = 0;
-
-    while (p_temp_sta)
-	{
-	if (memcmp(in_mac, p_temp_sta->station_address, MACLEN) == 0)
-	    {
-	    p_temp_mon = p_temp_sta->monitor;
-	    p_prev_mon = NULL;
-	    while (p_temp_mon)
-		{
-		p_prev_mon = p_temp_mon->next_mon;
-		free(p_temp_mon);
-		p_temp_mon = p_prev_mon;
-		}
-	    free(p_temp_sta->position);
-	    free(p_temp_sta->pos_xy);
-	    if (p_temp_sta == p_start_sta)
-		{
-		p_start_sta = p_temp_sta->next_sta;
-		free(p_temp_sta);
-		}
-	    else
-		{
-		p_prev_sta->next_sta = p_temp_sta->next_sta;
-		free(p_temp_sta);
-		}
-	    fprintf(message, "STATION " MACSTR " torolve. \n", MAC2STR(p_temp_sta->station_address));
-	    megvan = 1;
-	    break;
-	    }
-	else
-	    {
-	    p_prev_sta = p_temp_sta;
-	    p_temp_sta = p_temp_sta->next_sta;
-	    }
-	}
-    if (megvan == 0)
-	{
-	fprintf(message, "Nincs a " MACSTR " MAC az adatbazisban \n", MAC2STR(in_mac));
-	}
-}
-
 void record_sta(char char_mac[13])
 {
     char sql[512];
