@@ -75,6 +75,24 @@ void show_sta(u_char in_mac[MACLEN])		//Egy station kiirasa
     mysql_free_result(sql_result);
 }
 
+void del_sta(char char_mac[13])
+{
+    char sql[512];
+    int result;
+
+    snprintf(sql, sizeof sql, "DELETE FROM `station_data` WHERE `sta_id` = '%s'", char_mac);
+    mysql_putx(sql);
+    snprintf(sql, sizeof sql, "DELETE FROM `station_list` WHERE `sta_id` = '%s'", char_mac);
+    result = mysql_update(sql);
+
+    if (result == 0) {
+        fprintf(message, "Nincs a %s MAC az adatbazisban. \n", char_mac);
+    }
+    if (result == 1) {
+        fprintf(message, "%s torolve. \n", char_mac);
+    }
+}
+
 void record_sta(char char_mac[13])
 {
     char sql[512];

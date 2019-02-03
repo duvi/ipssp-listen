@@ -168,10 +168,10 @@ int main(void)
 	    message=fopen("logs/position.log", "w");
 
 	    sscanf(buf, "%*s %12s ", char_mac);
-	    str2hex(char_mac, in_mac);
-	    del_sta(in_mac);
+	    del_sta(char_mac);
 
 	    fclose(message);
+
 	    talk("done", ntohs(their_addr.sin_port));
 	    continue;
 	    }
@@ -251,7 +251,8 @@ int main(void)
 	    sscanf(buf, "%*s %*s %i %i ", &time_i, &time_max);
 //	    for (time_i = 1; time_i <= time_max; time_i++)
 //		{
-	    del_sta(rec_sta);
+	    sprintf(char_mac, MACSTR, MAC2STR(rec_sta));
+	    del_sta(char_mac);
 	    load_single(time_i, time_max);
 //	    fprintf(message, "%i ", time_i);
 	    if (strstr(buf, "compare") && p_start_pos)
@@ -846,14 +847,9 @@ void *periodic_del()
 
 	while ((row = mysql_fetch_row(sql_result)))
 	    {
-	    fprintf(message, "MAC: %s deleted\n", row[0]);
-	    snprintf(sql, sizeof sql, "DELETE FROM `station_data` WHERE `sta_id` = '%s'", row[0]);
-	    mysql_putx(sql);
+	    del_sta(row[0]);
 	    }
 	mysql_free_result(sql_result);
-
-	snprintf(sql, sizeof sql, "DELETE FROM `station_list` WHERE `time_last` < (NOW() - INTERVAL %i SECOND)", DEL_TIMEOUT);
-	mysql_putx(sql);
 
 	fclose(message);
 	sleep(DEL_INT);
