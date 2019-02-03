@@ -123,39 +123,19 @@ void del_sta(u_char in_mac[MACLEN])
 	}
 }
 
-void record_sta(u_char in_mac[MACLEN])
+void record_sta(char char_mac[13])
 {
-    struct station_pos *p_temp_sta;
-    p_temp_sta = p_start_sta;
+    char sql[512];
+    int result;
 
-    int megvan = 0;
-
-    while (p_temp_sta)
-	{
-	if (memcmp(in_mac, p_temp_sta->station_address, MACLEN) == 0)
-	    {
-	    if (p_temp_sta->record == 1)
-		{
-		p_temp_sta->record = 0;
-		fprintf(message, MACSTR " rogzitese kikapcsolva. \n", MAC2STR(in_mac));
-		}
-	    else
-		{
-		p_temp_sta->record = 1;
-		fprintf(message, MACSTR " rogzitese bekapcsolva. \n", MAC2STR(in_mac));
-		}
-	    megvan = 1;
-	    break;
-	    }
-	else
-	    {
-	    p_temp_sta = p_temp_sta->next_sta;
-	    }
-	}
-    if (megvan == 0)
-	{
-	fprintf(message, "Nincs a " MACSTR " MAC az adatbazisban \n", MAC2STR(in_mac));
-	}
+    snprintf(sql, sizeof sql, "UPDATE `station_list` SET `record` = NOT `record` WHERE `sta_id` = '%s'", char_mac);
+    result = mysql_update(sql);
+    if (result == 0) {
+        fprintf(message, "Nincs a %s MAC az adatbazisban. \n", char_mac);
+    }
+    if (result == 1) {
+        fprintf(message, "%s rogzitese atkapcsolva. \n", char_mac);
+    }
 }
 
 void beolvas(struct sender * adat, struct sockaddr_in kuldo)		//Új adat fogadása

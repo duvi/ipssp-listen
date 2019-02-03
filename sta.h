@@ -8,7 +8,7 @@ void show_sta(u_char in_mac[MACLEN]);			//Egy station kiirasa
 
 void del_sta(u_char in_mac[MACLEN]);			//Station torlese
 
-void record_sta(u_char in_mac[MACLEN]);			//Station rogzites kapcsolasa
+void record_sta(char char_mac[13]);			//Station rogzites kapcsolasa
 
 void beolvas(struct sender * adat, struct sockaddr_in kuldo);		//Új adat fogadása
 

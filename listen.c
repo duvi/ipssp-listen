@@ -181,8 +181,7 @@ int main(void)
 	    message=fopen("logs/position.log", "w");
 
 	    sscanf(buf, "%*s %12s ", char_mac);
-	    str2hex(char_mac, in_mac);
-	    record_sta(in_mac);
+	    record_sta(char_mac);
 
 	    fclose(message);
 
