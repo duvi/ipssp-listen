@@ -21,6 +21,32 @@ int mysql_putx(char sql[512])
     return result;
 }
 
+int mysql_update(char sql[512])
+{
+    int result;
+    MYSQL *conn;
+    conn = mysql_init(NULL);
+    mysql_real_connect(conn, "localhost", "iparking", "1p4rk1n6", "iparking", 0, NULL, 0);
+
+    mysql_query(conn, sql);
+
+    result = mysql_affected_rows(conn);
+
+    mysql_close(conn);
+
+    if (DEBUG) {
+        printf("SQL: %s\n", sql);
+        if (result == -1) {
+            printf("ERROR: SQL \n");
+        }
+        else {
+            printf("SUCCESS: %i row(s) affected. \n", result);
+        }
+    }
+
+    return result;
+}
+
 MYSQL_RES *mysql_getx(char sql[512])
 {
     MYSQL *conn;

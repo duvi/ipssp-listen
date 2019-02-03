@@ -6,6 +6,8 @@
 
 int mysql_putx(char sql[512]);				//MySQL adat put
 
+int mysql_update(char sql[512]);			//MySQL adat update
+
 MYSQL_RES *mysql_getx(char sql[512]);			//MySQL adat get
 
 double dbm2mw(int sig_db);				//dBm -> mW
