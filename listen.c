@@ -213,7 +213,7 @@ int main(void)
 		    fprintf(recording, "%i,%i", p_record->x, p_record->y);
 		    fclose(recording);
 
-		    char dirname[40];
+		    char dirname[50];
 		    sprintf(dirname, "positions/%s/index.pos", p_record->nev);
 		    index = fopen(dirname, "a");
 		    fprintf(index, "position %i,%i,%i\n", p_record->num, p_record->x, p_record->y);
@@ -457,9 +457,6 @@ int main(void)
 
 	if (strstr(buf, "load_pos"))
 	    {
-	    struct record_pos *p_load_pos;
-	    p_load_pos = (struct record_pos *) malloc(sizeof(struct record_pos));
-
 	    message=fopen("logs/position.log", "w");
 
 	    char adat[25];
@@ -509,9 +506,6 @@ int main(void)
 	    free(message_str);
 
 //Poziciok betoltese memoriaba
-	    struct record_pos *p_load_pos;
-	    p_load_pos = (struct record_pos *) malloc(sizeof(struct record_pos));
-
 	    char adat[25];
 	    char dirname[60];
 	    sscanf(buf, "%*s %s %s ", p_record->nev, p_record->mac);
