@@ -10,6 +10,9 @@ void del_sta(char char_mac[13]);			//Station torlese
 
 void record_sta(char char_mac[13]);			//Station rogzites kapcsolasa
 
+//Rogzito stationok betoltese
+void record_stations();
+
 void beolvas(struct sender * adat, struct sockaddr_in kuldo);		//Új adat fogadása
 
 int load_sta(char adat[MAXBUFLEN]);			//Station lista betoltese

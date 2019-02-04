@@ -172,3 +172,13 @@ double distance(struct position_pos *a, struct position_pos *b)
 //	fprintf(message,"a:[%i,%i] b:[%i,%i] d=%2.4f \n", a->x, a->y, b->x, b->y, dist);
 	return dist;
 }
+
+int in_array(char arr[MAXRECSTA][13], int len, char target[13]) {
+    int i;
+    for (i = 0; i < len; i++) {
+        if (strncmp(arr[i], target, strlen(target)) == 0) {
+            return 1;
+        }
+    }
+    return 0;
+}

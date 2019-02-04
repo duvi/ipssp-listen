@@ -26,5 +26,7 @@ double norm_dist(double mean, double std_dev, int x);
 
 double distance(struct position_pos *a, struct position_pos *b);
 
+int in_array(char arr[MAXRECSTA][13], int len, char target[13]);
+
 
 #endif /* _UTILS_H_ */

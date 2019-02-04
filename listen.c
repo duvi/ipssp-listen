@@ -700,6 +700,13 @@ int konfig(void)
 	    }
 	else printf("OFF\n");
 
+    record_stations();
+    int i;
+    printf("Rogzito stationok: \n");
+    for (i = 0; i < MAXRECSTA; i++) {
+        if (strlen(rec_stations[i]) != 0) printf("%s \n", rec_stations[i]);
+    }
+
     if (COMMPORT == DATAPORT)
 	{
 	printf("ERROR: Incoming port is equal to data port!\n");

@@ -25,6 +25,7 @@
 #define TX 20
 #define PI 3.14159265
 #define EEE 2.71828183
+#define MAXRECSTA 10
 
 #define MAC2STR(a) (a)[0], (a)[1], (a)[2], (a)[3], (a)[4], (a)[5]
 #define MACSTR "%02x%02x%02x%02x%02x%02x"
@@ -104,6 +105,8 @@ time_t rec_time;
 
 int coord_x;
 int coord_y;
+
+char rec_stations[MAXRECSTA][13];
 
 char command[10];
 
