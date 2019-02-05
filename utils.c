@@ -86,7 +86,7 @@ int dbm2cm(int sig_db, int chan)
 	return dist_cm;
 }
 
-void str2hex(char bejovo[13], u_char kimeno[MACLEN])
+void str2hex(char bejovo[CHARMACLEN], u_char kimeno[MACLEN])
 {
 	int i, j;
 	for (i = 0; i < MACLEN; i++)
@@ -173,7 +173,7 @@ double distance(struct position_pos *a, struct position_pos *b)
 	return dist;
 }
 
-int in_array(char arr[MAXRECSTA][13], int len, char target[13]) {
+int in_array(char arr[MAXRECSTA][CHARMACLEN], int len, char target[CHARMACLEN]) {
     int i;
     for (i = 0; i < len; i++) {
         if (strncmp(arr[i], target, strlen(target)) == 0) {

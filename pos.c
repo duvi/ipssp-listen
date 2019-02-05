@@ -199,7 +199,7 @@ int load_map(char adat[MAXBUFLEN])		//Terkep betoltese
 
     char sor[60];
     char in_ip[IPLEN];
-    char char_mac[13];
+    char char_mac[CHARMACLEN];
     int pos_id;
     int x;
     int y;
@@ -257,7 +257,7 @@ int load_pos(struct record_pos * adat)		//Pozicio betoltese
 
     char sor[70];
     char in_ip[IPLEN];
-    char char_mac[13];
+    char char_mac[CHARMACLEN];
     u_char in_mac[MACLEN];
     int in_signal;
 

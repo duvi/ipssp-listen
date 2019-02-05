@@ -6,9 +6,9 @@ void list_sta(int sta_detail);				//Stationok listazasa
 
 void show_sta(u_char in_mac[MACLEN]);			//Egy station kiirasa
 
-void del_sta(char char_mac[13]);			//Station torlese
+void del_sta(char char_mac[CHARMACLEN]);		//Station torlese
 
-void record_sta(char char_mac[13]);			//Station rogzites kapcsolasa
+void record_sta(char char_mac[CHARMACLEN]);		//Station rogzites kapcsolasa
 
 //Rogzito stationok betoltese
 void record_stations();

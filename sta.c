@@ -75,7 +75,7 @@ void show_sta(u_char in_mac[MACLEN])		//Egy station kiirasa
     mysql_free_result(sql_result);
 }
 
-void del_sta(char char_mac[13])
+void del_sta(char char_mac[CHARMACLEN])
 {
     char sql[512];
     int result;
@@ -115,7 +115,7 @@ void record_stations() {
     mysql_free_result(sql_result);
 }
 
-void record_sta(char char_mac[13])
+void record_sta(char char_mac[CHARMACLEN])
 {
     char sql[512];
     int result;
@@ -139,7 +139,7 @@ void record_sta(char char_mac[13])
 void beolvas(struct sender * adat, struct sockaddr_in kuldo)		//Új adat fogadása
 {
     char sql[512];
-    char char_mac[13];
+    char char_mac[CHARMACLEN];
 
     sprintf(char_mac, MACSTR, MAC2STR(adat->station));
 
@@ -185,7 +185,7 @@ int load_sta(char adat[MAXBUFLEN])
     if ((stations = fopen(loadname,"r")) == NULL) return 1;
 
     char sor[70];
-    char char_mac[13];
+    char char_mac[CHARMACLEN];
     char in_ip[IPLEN];
     int in_time;
 
@@ -260,8 +260,8 @@ int load_single(int time_i, int time_max)
     FILE *stations;
     char sor[70];
     char in_ip[IPLEN];
-//    char char_mac_sta[13];
-    char char_mac_mon[13];
+//    char char_mac_sta[CHARMACLEN];
+    char char_mac_mon[CHARMACLEN];
     int in_time;
     int in_signal;
     int in_channel;

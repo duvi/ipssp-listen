@@ -21,6 +21,7 @@
 #define MAXMAPLEN 30
 #define MAXPOSLEN 30
 #define MACLEN 6
+#define CHARMACLEN 13
 #define IPLEN 16
 #define TX 20
 #define PI 3.14159265
@@ -90,7 +91,7 @@ struct record_pos {
 	int y;
 	int num;
 	char nev[MAXPOSLEN];
-	char mac[13];
+	char mac[CHARMACLEN];
 };
 
 
@@ -106,7 +107,7 @@ time_t rec_time;
 int coord_x;
 int coord_y;
 
-char rec_stations[MAXRECSTA][13];
+char rec_stations[MAXRECSTA][CHARMACLEN];
 
 char command[10];
 

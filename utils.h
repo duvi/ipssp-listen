@@ -16,7 +16,7 @@ int mw2dbm(double sig_mw);				//mW -> dBm
 
 int dbm2cm(int sig_db, int chan);			//Jelerosseg -> tavolsag
 
-void str2hex(char bejovo[13], u_char kimeno[MACLEN]);	//MAC string -> hexa
+void str2hex(char bejovo[CHARMACLEN], u_char kimeno[MACLEN]);	//MAC string -> hexa
 
 double average(int signal[], int n);
 
@@ -26,7 +26,7 @@ double norm_dist(double mean, double std_dev, int x);
 
 double distance(struct position_pos *a, struct position_pos *b);
 
-int in_array(char arr[MAXRECSTA][13], int len, char target[13]);
+int in_array(char arr[MAXRECSTA][CHARMACLEN], int len, char target[CHARMACLEN]);
 
 
 #endif /* _UTILS_H_ */

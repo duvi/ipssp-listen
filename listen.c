@@ -28,7 +28,7 @@ int main(void)
     p_start_sta = NULL;
     p_start_pos = NULL;
 
-    char char_mac[13];
+    char char_mac[CHARMACLEN];
     u_char in_mac[MACLEN];
 
     int time_max;
@@ -609,7 +609,7 @@ int konfig(void)
     FILE *config;
     if ((config = fopen("listen.ini","r")) == NULL) return 1;
 
-    char char_mac[13];
+    char char_mac[CHARMACLEN];
 
     p_record->enabled = 0;
     p_record->num = 0;
