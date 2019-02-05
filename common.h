@@ -90,7 +90,7 @@ struct record_pos {
 	int y;
 	int num;
 	char nev[MAXPOSLEN];
-	u_char mac[MACLEN];
+	char mac[13];
 };
 
 
