@@ -843,7 +843,7 @@ void *periodic_del()
 	time(&rawtime);
 	fprintf(message, "TIME: %s", ctime(&rawtime));
 
-	snprintf(sql, sizeof sql, "SELECT `sta_id` FROM `station_list` WHERE `time_last` < (NOW() - INTERVAL %i SECOND)", DEL_TIMEOUT);
+	snprintf(sql, sizeof sql, "SELECT `sta_id` FROM `station_list` WHERE `record` = 0 AND `time_last` < (NOW() - INTERVAL %i SECOND)", DEL_TIMEOUT);
 	sql_result = mysql_getx(sql);
 
 	while ((row = mysql_fetch_row(sql_result)))
