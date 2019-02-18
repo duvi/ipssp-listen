@@ -224,6 +224,57 @@ int main(void)
 		else
 		    {
 		    remove("recording");
+
+		    //Uj pozicio betoltese memoriaba
+		    if (load_pos(p_record))
+		        {
+		        fprintf(message, "Sikertelen betoltes! \n");
+		        }
+		    else
+		        {
+		        fprintf(message, "Sikeres betoltes! \n");
+		        }
+
+		    //Poziciok kiirasa temp fileba
+		    fprintf(message, "Poziciok kiirase temp fileba: ");
+		    if (p_start_pos)
+			{
+			if (save_map("save_map temp"))
+			    {
+			    fprintf(message, "Sikertelen mentes! \n");
+			    }
+			else
+			    {
+			    fprintf(message, "Sikeres mentes! \n");
+			    }
+			}
+		    else
+			{
+			fprintf(message, "Nincs rogzitett pozicio! \n");
+			}
+
+		    //Poziciok betoltese temp filebol adatbazisba
+		    fprintf(message, "Poziciok betoltese temp filebol adatbazisba: ");
+		    if (load_map("load_map temp"))
+			{
+			fprintf(message, "Sikertelen betoltes! \n");
+			}
+		    else
+			{
+			fprintf(message, "Sikeres betoltes! \n");
+			}
+
+		    //Temp file torlese
+		    fprintf(message, "Temp file torlese: ");
+		    if (remove("temp.map"))
+			{
+			fprintf(message, "Sikertelen torles! \n");
+			}
+		    else
+			{
+				fprintf(message, "Sikeres torles! \n");
+			}
+
 		    fprintf(message, "Rogzites kikapcsolva \n");
 		    }
 	    fclose(message);
