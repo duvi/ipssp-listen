@@ -221,7 +221,7 @@ int load_map(char adat[MAXBUFLEN])		//Terkep betoltese
 	    {
 	    sscanf(strstr(sor, "POSITION:"), "POSITION: %*i [%i,%i] %i ", &x, &y, &time_scan);
 
-	    snprintf(sql, sizeof sql, "INSERT INTO `position_list`(`x`,`y`) VALUES(%i,%i)", x, y);
+	    snprintf(sql, sizeof sql, "INSERT INTO `position_list`(`x`,`y`,`time_rec`) VALUES(%i,%i,FROM_UNIXTIME(%i))", x, y, time_scan);
 	    pos_id = mysql_putx(sql);
 
 	    continue;
@@ -249,11 +249,13 @@ int load_pos(struct record_pos * adat)		//Pozicio betoltese
 
     char loadname[80];
     FILE *position;
+    struct stat filestat;
 
     sprintf(loadname, "positions/%s/%s/%03i.pos", adat->nev, adat->mac, adat->num);
     if(DEBUG) printf("positions/%s/%s/%03i.pos x%i y%i\n", adat->nev, adat->mac, adat->num, adat->x, adat->y);
 
     if ((position = fopen(loadname,"r")) == NULL) return 1;
+    stat(loadname,&filestat);
 
     char sor[70];
     char in_ip[IPLEN];
@@ -272,7 +274,7 @@ int load_pos(struct record_pos * adat)		//Pozicio betoltese
     sprintf(p_new_pos->nev, "%i", adat->num);
     p_new_pos->x		= adat->x;
     p_new_pos->y		= adat->y;
-    p_new_pos->time_rec		= time(NULL);
+    p_new_pos->time_rec		= filestat.st_mtime;
     p_new_pos->monitor		= NULL;
     p_new_pos->next		= p_start_pos;
     p_start_pos			= p_new_pos;
