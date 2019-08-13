@@ -8,7 +8,7 @@ int mysql_putx(char sql[512])
     int result;
     MYSQL *conn;
     conn = mysql_init(NULL);
-    mysql_real_connect(conn, "localhost", "iparking", "1p4rk1n6", "iparking", 0, NULL, 0);
+    mysql_real_connect(conn, "localhost", "ipssp", "CExnpCD0IenDzppC", "ipssp", 0, NULL, 0);
 
     mysql_query(conn, sql);
 
@@ -26,7 +26,7 @@ int mysql_update(char sql[512])
     int result;
     MYSQL *conn;
     conn = mysql_init(NULL);
-    mysql_real_connect(conn, "localhost", "iparking", "1p4rk1n6", "iparking", 0, NULL, 0);
+    mysql_real_connect(conn, "localhost", "ipssp", "CExnpCD0IenDzppC", "ipssp", 0, NULL, 0);
 
     mysql_query(conn, sql);
 
@@ -52,7 +52,7 @@ MYSQL_RES *mysql_getx(char sql[512])
     MYSQL *conn;
     MYSQL_RES *result;
     conn = mysql_init(NULL);
-    mysql_real_connect(conn, "localhost", "iparking", "1p4rk1n6", "iparking", 0, NULL, 0);
+    mysql_real_connect(conn, "localhost", "ipssp", "CExnpCD0IenDzppC", "ipssp", 0, NULL, 0);
 
     mysql_query(conn, sql);
     result = mysql_store_result(conn);
