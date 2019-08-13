@@ -80,11 +80,6 @@ struct sender {
 	u_char channel;
 };
 
-struct park_send {
-	u_char id;
-	u_char free;
-};
-
 struct record_pos {
 	int enabled;
 	int x;
@@ -118,7 +113,6 @@ int DETAIL;
 int DELETE;
 int COMMPORT;
 int DATAPORT;
-int PARKPORT;
 int DEL_INT;
 int DEL_TIMEOUT;
 

@@ -6,8 +6,6 @@ int konfig(void);
 
 void *data_coll();
 
-void *park_coll();
-
 void *periodic_del();
 
 

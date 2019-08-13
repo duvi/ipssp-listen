@@ -74,13 +74,6 @@ int main(void)
 	exit(1);
 	}
 
-    pthread_t thread_park;
-    if (pthread_create(&thread_park, NULL, park_coll, NULL))
-	{
-	perror("Thread");
-	exit(1);
-	}
-
     if (DELETE)
 	{
         pthread_t thread_periodic_del;
@@ -715,11 +708,6 @@ int konfig(void)
 	    sscanf(adat, "%*s %i ", &DATAPORT);
 	    continue;
 	    }
-	if (strstr(adat, "park_port"))
-	    {
-	    sscanf(adat, "%*s %i ", &PARKPORT);
-	    continue;
-	    }
 	if (strstr(adat, "rec_sta"))
 	    {
 	    sscanf(adat, "%*s %12s ", char_mac);
@@ -733,7 +721,6 @@ int konfig(void)
     printf("Offset                  %i dBm \n", offset);
     printf("Command UDP port        %i \n", COMMPORT);
     printf("Data UDP port           %i \n", DATAPORT);
-    printf("Park UDP port           %i \n", PARKPORT);
     printf("Debug mode              "); if (DEBUG) printf("ON\n"); else printf("OFF\n");
     printf("Detail compare          "); if (DETAIL) printf("ON\n"); else printf("OFF\n");
     printf("Periodic station delete ");
@@ -813,64 +800,6 @@ void *data_coll()
 	    }
 
 	beolvas(adat_be, their_addr);
-	free(adat_be);
-	continue;
-	}
-}
-
-////////////////////////////////////////////////////////////////////////////////
-void *park_coll()
-{
-    int sockfd;
-    struct sockaddr_in my_addr;	//my address information
-    struct sockaddr_in their_addr;	//their address information
-    int numbytes;
-    socklen_t addr_len;
-    struct park_send *adat_be;
-
-    char sql[512];
-
-    printf("Parking sensor thread started\n");
-
-    if ((sockfd = socket(AF_INET, SOCK_DGRAM, 0)) == -1)
-        {
-        perror("socket");
-        exit(1);
-        }
-
-    my_addr.sin_family = AF_INET; // host byte order
-    my_addr.sin_port = htons(PARKPORT); // short, network byte order
-    my_addr.sin_addr.s_addr = INADDR_ANY; // automatikusan kitöltődik a saját IP-mel
-    memset(&(my_addr.sin_zero), '\0', 8); // kinullázza a struktúra többi részét
-
-    if (bind(sockfd, (struct sockaddr *)&my_addr,sizeof(struct sockaddr)) == -1)
-        {
-        perror("bind");
-        exit(1);
-        }
-
-    addr_len = sizeof(struct sockaddr);
-
-    while (1)
-	{
-	adat_be = (struct park_send *) malloc(sizeof(struct park_send));
-	if ((numbytes=recvfrom(sockfd,adat_be, sizeof(struct park_send), 0,(struct sockaddr *)&their_addr, &addr_len)) == -1)
-	    {
-	    perror("recvfrom");
-	    exit(1);
-	    }
-
-	if(DEBUG)
-	    {
-	    printf("DEBUG_PARK from %s %d bytes\n", inet_ntoa(their_addr.sin_addr), numbytes);
-	    printf("DEBUG_PARK id: 0x%02x\n", adat_be->id);
-	    printf("DEBUG_PARK free: 0x%02x\n", adat_be->free);
-	    }
-
-	snprintf(sql, sizeof sql, "REPLACE INTO `park_data`(`park_id`,`free`) VALUES(%c,%c)", adat_be->id, adat_be->free);
-//	snprintf(sql, sizeof sql, "REPLACE INTO `park_data`(`park_id`,`free`) VALUES(%x,%x)", adat_be->id, adat_be->free);
-	mysql_putx(sql);
-
 	free(adat_be);
 	continue;
 	}
