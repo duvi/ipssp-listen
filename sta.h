@@ -17,7 +17,5 @@ void beolvas(struct sender * adat, struct sockaddr_in kuldo);		//√öj adat fogad√
 
 int load_sta(char adat[MAXBUFLEN]);			//Station lista betoltese
 
-int load_single(int time_i, int time_max);			//Egy station betoltese
-
 
 #endif /* _STA_H_ */

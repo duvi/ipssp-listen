@@ -289,46 +289,6 @@ int main(void)
 	    continue;
 	    }
 
-	if (strstr(buf, "load_single"))
-	    {
-	    message=fopen("logs/position.log", "w");
-	    sscanf(buf, "%*s %*s %i %i ", &time_i, &time_max);
-//	    for (time_i = 1; time_i <= time_max; time_i++)
-//		{
-	    sprintf(char_mac, MACSTR, MAC2STR(rec_sta));
-	    del_sta(char_mac);
-	    load_single(time_i, time_max);
-//	    fprintf(message, "%i ", time_i);
-	    if (strstr(buf, "compare") && p_start_pos)
-		{
-		compare(rec_sta);
-		}
-	    if (strstr(buf, "comp_offs") && p_start_pos)
-		{
-		comp_offs(rec_sta);
-		}
-	    if (strstr(buf, "comp_diff") && p_start_pos)
-		{
-		comp_diff(rec_sta,0);
-		}
-	    if (strstr(buf, "comp_sort") && p_start_pos)
-		{
-		comp_sort(rec_sta);
-		}
-	    if (strstr(buf, "comp_norm") && p_start_pos)
-		{
-		comp_norm(rec_sta);
-		}
-	    if (strstr(buf, "comp_dist") && p_start_pos)
-		{
-		comp_dist(rec_sta);
-		}
-//		}
-	    fclose(message);
-	    talk("done", ntohs(their_addr.sin_port));
-	    continue;
-	    }
-
 	if (strstr(buf, "offset"))
 	    {
 	    message=fopen("logs/position.log", "w");
