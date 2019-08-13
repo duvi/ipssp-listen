@@ -48,7 +48,7 @@ exit(1);
 }
 
 //printf("%s", message);
-printf("sent %d bytes to %s\n", numbytes,inet_ntoa(their_addr.sin_addr));
+printf("sent %d bytes to %s:%i containing: %s\n", numbytes,inet_ntoa(their_addr.sin_addr),their_addr.sin_port,message);
 
 close(sockfd);
 
