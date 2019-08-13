@@ -106,7 +106,6 @@ char rec_stations[MAXRECSTA][CHARMACLEN];
 
 char command[10];
 
-u_char rec_sta[MACLEN];
 int offset;
 int DEBUG;
 int DETAIL;

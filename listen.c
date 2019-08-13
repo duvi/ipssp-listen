@@ -182,18 +182,6 @@ int main(void)
 	    continue;
 	    }
 
-	if (strstr(buf, "rec_sta"))
-	    {
-	    message=fopen("logs/position.log", "w");
-		fprintf(message, "Eddigi rogzito MAC " MACSTR "\n", MAC2STR(rec_sta));
-	    sscanf(buf, "%*s %12s ", char_mac);
-	    str2hex(char_mac, rec_sta);
-		fprintf(message, "Uj rogzito MAC " MACSTR "\n", MAC2STR(rec_sta));
-	    fclose(message);
-	    talk("done", ntohs(their_addr.sin_port));
-	    continue;
-	    }
-
 	if (strstr(buf, "rec_single"))
 	    {
 	    message=fopen("logs/position.log", "w");
@@ -627,7 +615,6 @@ int konfig(void)
     DEL_TIMEOUT = 10;
     COMMPORT = 1000;
     DATAPORT = 1001;
-    str2hex("0013ce100ba2", rec_sta);
 
     char adat[25];
 
@@ -668,16 +655,9 @@ int konfig(void)
 	    sscanf(adat, "%*s %i ", &DATAPORT);
 	    continue;
 	    }
-	if (strstr(adat, "rec_sta"))
-	    {
-	    sscanf(adat, "%*s %12s ", char_mac);
-	    str2hex(char_mac, rec_sta);    
-	    continue;
-	    }
 	}
     fclose(config);
 
-    printf("Recording station       " MACSTR "\n", MAC2STR(rec_sta));
     printf("Offset                  %i dBm \n", offset);
     printf("Command UDP port        %i \n", COMMPORT);
     printf("Data UDP port           %i \n", DATAPORT);
