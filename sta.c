@@ -158,8 +158,8 @@ void beolvas(struct sender * adat, struct sockaddr_in kuldo)		//Új adat fogadása
     if (p_record->enabled && in_array(rec_stations, 10, char_mac)) {
         if (DEBUG) printf("Recording data of %s\n", char_mac);
         FILE *record_file;
-        char filename_rec[40];
-        char dirname[41];
+        char filename_rec[69];
+        char dirname[53];
         sprintf(dirname, "positions/%s/%s", p_record->nev, char_mac);
         struct stat st;
         if (stat(dirname,&st)) {
@@ -175,7 +175,7 @@ void beolvas(struct sender * adat, struct sockaddr_in kuldo)		//Új adat fogadása
 
 int load_sta(char adat[MAXBUFLEN])
 {
-    char loadname[30];
+    char loadname[MAXMAPLEN+4];
     char filename[MAXMAPLEN];
     FILE *stations;
 

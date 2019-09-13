@@ -89,7 +89,7 @@ void clear_map(void)
 
 int save_map(char adat[MAXBUFLEN])		//Terkep mentese
 {
-    char savename[30];
+    char savename[MAXMAPLEN+4];
     char filename[MAXMAPLEN];
     FILE *positions;
 
@@ -123,7 +123,7 @@ int load_map(char adat[MAXBUFLEN])		//Terkep betoltese
 {
     char sql[512];
 
-    char loadname[30];
+    char loadname[MAXMAPLEN+4];
     char filename[MAXMAPLEN];
     FILE *positions;
 
