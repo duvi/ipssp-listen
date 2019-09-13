@@ -4,8 +4,15 @@
 
 int del_pos(char adat[MAXBUFLEN])
 {
+    char sql[512];
+
     char torlendo[MAXPOSLEN];
     sscanf(adat, "%*s %s ", torlendo);
+
+    snprintf(sql, sizeof sql, "DELETE FROM `position_list` WHERE `pos_id` = '%s'", torlendo);
+    mysql_putx(sql);
+    snprintf(sql, sizeof sql, "DELETE FROM `position_data` WHERE `pos_id` = '%s'", torlendo);
+    mysql_putx(sql);
 
     struct position_pos *p_temp_pos, *p_prev_pos;
     struct monitor_pos *p_temp_mon, *p_prev_mon;
