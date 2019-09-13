@@ -30,9 +30,6 @@ int main(void)
 
     char char_mac[CHARMACLEN];
     u_char in_mac[MACLEN];
-
-    int time_max;
-    int time_i;
 /*
     char sql[512];
     MYSQL_RES *sql_result;
@@ -587,8 +584,6 @@ int konfig(void)
 {
     FILE *config;
     if ((config = fopen("listen.ini","r")) == NULL) return 1;
-
-    char char_mac[CHARMACLEN];
 
     p_record->enabled = 0;
     p_record->num = 0;
