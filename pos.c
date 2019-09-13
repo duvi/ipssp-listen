@@ -80,46 +80,6 @@ void clear_map(void)
     p_record->num = 0;
 }
 
-void rec_pos(struct sender * adat, struct sockaddr_in kuldo)	//Pozicio rogzites
-{
-    struct monitor_pos *p_new_mon, *p_temp_mon;
-    p_temp_mon = p_new_pos->monitor;
-
-    int csere_mon = 0;
-
-    while (p_temp_mon)
-	{
-	if (memcmp(adat->monitor, p_temp_mon->serial, MACLEN) == 0)
-	    {
-	    if (adat->signal < p_temp_mon->signal)
-	        {
-	        p_temp_mon->signal		= adat->signal;
-	        p_temp_mon->monitor_address = kuldo.sin_addr;
-//		p_temp_mon->time_rcv	= time(NULL);
-	        }
-
-	    csere_mon = 1;
-	    break;
-	    }
-	else
-	    {
-	    p_temp_mon = p_temp_mon->next_mon;
-	    }
-	}
-    if (csere_mon == 0)
-        {
-        p_new_mon = (struct monitor_pos *) malloc(sizeof(struct monitor_pos));
-
-        memcpy(p_new_mon->serial, adat->monitor, MACLEN);
-        p_new_mon->signal	   = adat->signal;
-        p_new_mon->monitor_address = kuldo.sin_addr;
-//	p_new_mon->time_rcv	   = time(NULL);
-	p_new_mon->next_mon	   = p_new_pos->monitor;
-		
-	p_new_pos->monitor	   = p_new_mon;
-	}
-}
-
 int save_map(char adat[MAXBUFLEN])		//Terkep mentese
 {
     char savename[30];

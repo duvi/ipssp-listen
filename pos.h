@@ -4,8 +4,6 @@
 
 int del_pos(char adat[MAXBUFLEN]);			//Terkeppont torlese
 
-void rec_pos(struct sender * adat, struct sockaddr_in kuldo);		//Terkeppont rogzitese
-
 void get_pos(void);					//Terkeppontok listazasa
 
 void sort_pos(void);					//Poziciok sorba rendezese
