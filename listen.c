@@ -527,21 +527,6 @@ int main(void)
 	    continue;
 	    }
 
-	if (strstr(buf, "load_sta"))
-	    {
-	    message=fopen("logs/position.log", "w");
-	    if (load_sta(buf))
-		{
-		fprintf(message, "Sikertelen betoltes! \n");
-		}
-	    else
-		{
-		fprintf(message, "Sikeres betoltes! \n");
-		}
-	    fclose(message);
-	    talk("done", ntohs(their_addr.sin_port));
-	    continue;
-	    }
 	}
 
     close(sockfd);

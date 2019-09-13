@@ -11,7 +11,5 @@ void record_stations();
 
 void beolvas(struct sender * adat, struct sockaddr_in kuldo);		//Új adat fogadása
 
-int load_sta(char adat[MAXBUFLEN]);			//Station lista betoltese
-
 
 #endif /* _STA_H_ */
