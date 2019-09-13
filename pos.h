@@ -2,15 +2,20 @@
 #define _POS_H_
 
 
-int del_pos(char adat[MAXBUFLEN]);			//Terkeppont torlese
+//Terkeppont torlese
+int del_pos(char adat[MAXBUFLEN]);
 
-void clear_map(void);					//Terkep torlese
+//Terkep torlese
+void clear_map(void);
 
-int save_map(char adat[MAXBUFLEN]);			//Terkep mentese
+//Terkep mentese
+int save_map(char adat[MAXBUFLEN]);
 
-int load_map(char adat[MAXBUFLEN]);			//Terkep betoltese
+//Terkep betoltese
+int load_map(char adat[MAXBUFLEN]);
 
-int load_pos(struct record_pos * adat);			//Pozicio betoltese
+//Pozicio betoltese
+int load_pos(struct record_pos * adat);
 
 
 #endif /* _POS_H_ */

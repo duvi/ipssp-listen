@@ -2,6 +2,7 @@
 #define _TALK_H_
 
 
+//UDP csomag kuldese
 void talk(char *message, int dest_port);
 
 

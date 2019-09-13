@@ -2,14 +2,17 @@
 #define _STA_H_
 
 
-void del_sta(char char_mac[CHARMACLEN]);		//Station torlese
+//Station torlese
+void del_sta(char char_mac[CHARMACLEN]);
 
-void record_sta(char char_mac[CHARMACLEN]);		//Station rogzites kapcsolasa
+//Station rogzites kapcsolasa
+void record_sta(char char_mac[CHARMACLEN]);
 
 //Rogzito stationok betoltese
 void record_stations();
 
-void beolvas(struct sender * adat, struct sockaddr_in kuldo);		//Új adat fogadása
+//Új adat fogadása
+void beolvas(struct sender * adat, struct sockaddr_in kuldo);
 
 
 #endif /* _STA_H_ */
