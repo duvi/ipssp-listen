@@ -37,28 +37,6 @@ void return_pos_highest()
     fprintf(message, "Helyszin: %s \n", helyszin);
 }
 
-void return_pos_area()
-{
-    double diff_sum = 0.0; char *helyszin = "Ismeretlen";
-    int map[2] = {0,0};
-
-    struct position_pos *p_temp_pos;
-    p_temp_pos = p_start_pos;
-    while (p_temp_pos)
-	{
-	if (DETAIL) fprintf(message, " POS: %10s SUM_DIFF: %2.10f SUM_MON: %i CALC: %2.4f \n", p_temp_pos->nev, p_temp_pos->diff_sum_db, p_temp_pos->diff_sum_mon, p_temp_pos->diff_sum_db/p_temp_pos->diff_sum_mon);
-	if ((p_temp_pos->diff_sum_db / p_temp_pos->diff_sum_mon) > diff_sum)
-	    {
-	    diff_sum = p_temp_pos->diff_sum_db / p_temp_pos->diff_sum_mon;
-	    helyszin = p_temp_pos->nev;
-	    coord_x = p_temp_pos->x;
-	    coord_y = p_temp_pos->y;
-	    }
-	p_temp_pos = p_temp_pos->next;
-	}
-    fprintf(message, "Helyszin: %s \n", helyszin);
-}
-
 void compare(u_char in_mac[MACLEN])
 {
     time_t rawtime;
@@ -220,7 +198,7 @@ void comp_offs(u_char in_mac[MACLEN])
 	}
 }
 
-void comp_diff(u_char in_mac[MACLEN], int area)
+void comp_diff(u_char in_mac[MACLEN])
 {
     time_t rawtime;
     time(&rawtime);
@@ -347,14 +325,7 @@ void comp_diff(u_char in_mac[MACLEN], int area)
 	    while (p_temp_pos);
 	    megvan = 1;
 
-	    if (area)
-		{
-		return_pos_area();
-		}
-	    else
-		{
-		return_pos_highest();
-		}
+	    return_pos_highest();
 	    break;
 	    }
 	else

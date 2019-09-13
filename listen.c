@@ -299,11 +299,7 @@ int main(void)
 		    }
 		if (strstr(command, "comp_diff"))
 		    {
-		    comp_diff(in_mac,0);
-		    }
-		if (strstr(command, "comp_area"))
-		    {
-		    comp_diff(in_mac,1);
+		    comp_diff(in_mac);
 		    }
 		if (strstr(command, "comp_sort"))
 		    {

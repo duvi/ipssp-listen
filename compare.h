@@ -6,7 +6,7 @@ void compare(u_char in_mac[MACLEN]);			//Helymeghatarozo algoritmus
 
 void comp_offs(u_char in_mac[MACLEN]);			//Helymeghatarozo algoritmus offset
 
-void comp_diff(u_char in_mac[MACLEN], int area);	//Helymeghatarozo algoritmus ap diff
+void comp_diff(u_char in_mac[MACLEN]);			//Helymeghatarozo algoritmus ap diff
 
 void comp_sort(u_char in_mac[MACLEN]);			//Helymeghatarozo algoritmus monitor order every station
 
