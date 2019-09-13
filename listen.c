@@ -134,15 +134,6 @@ int main(void)
 	    continue;
 	    }
 
-	if (strstr(buf, "list_pos"))
-	    {
-	    message=fopen("logs/position.log", "w");
-	    list_pos();
-	    fclose(message);
-	    talk("done", ntohs(their_addr.sin_port));
-	    continue;
-	    }
-
 	if (strstr(buf, "show_sta"))
 	    {
 	    message=fopen("logs/position.log", "w");

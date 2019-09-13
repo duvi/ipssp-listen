@@ -120,38 +120,6 @@ void rec_pos(struct sender * adat, struct sockaddr_in kuldo)	//Pozicio rogzites
 	}
 }
 
-void list_pos(void)		//Positionok listazasa
-{
-    char sql[512];
-    MYSQL_RES *sql_result;
-    MYSQL_RES *sql_sub_result;
-    MYSQL_ROW row;
-    MYSQL_ROW sub_row;
-
-    snprintf(sql, sizeof sql, "SELECT `pos_id`, `x`, `y`, `time_rec` FROM `position_list`");
-    sql_result = mysql_getx(sql);
-
-    while ((row = mysql_fetch_row(sql_result)))
-	{
-	fprintf(message, "POSITION: %s [%s,%s] TIME: %s \n", row[0], row[1] ,row[2], row[3]);
-
-	snprintf(sql, sizeof sql, "SELECT `position_data`.`signal`, `position_data`.`mean`, `position_data`.`std_dev`, `monitor_list`.`ip` \
-	                            FROM `position_data` \
-	                            LEFT JOIN `monitor_list` \
-	                            ON `position_data`.`mon_id` = `monitor_list`.`mon_id` \
-	                            WHERE `position_data`.`pos_id` = '%s' \
-	                            ORDER BY `position_data`.`mean`", row[0]);
-	sql_sub_result = mysql_getx(sql);
-
-	    while ((sub_row = mysql_fetch_row(sql_sub_result)))
-		{
-		fprintf(message, "	MON: %s SIG: -%s dBm   MEAN: -%s dBm  DEV: %s \n", sub_row[3], sub_row[0], sub_row[1], sub_row[2]);
-		}
-	    mysql_free_result(sql_sub_result);
-	}
-    mysql_free_result(sql_result);
-}
-
 int save_map(char adat[MAXBUFLEN])		//Terkep mentese
 {
     char savename[30];
