@@ -5,42 +5,6 @@
 #include "compare.h"
 #include <sys/stat.h>
 
-void show_sta(u_char in_mac[MACLEN])		//Egy station kiirasa
-{
-    char sql[512];
-    MYSQL_RES *sql_result;
-    MYSQL_RES *sql_sub_result;
-    MYSQL_ROW row;
-    MYSQL_ROW sub_row;
-
-    snprintf(sql, sizeof sql, "SELECT `sta_id`, `channel` FROM `station_list` WHERE `sta_id` = '" MACSTR "'", MAC2STR(in_mac));
-    sql_result = mysql_getx(sql);
-
-    if ((row = mysql_fetch_row(sql_result)))
-	{
-	fprintf(message, "STATION: %s CHANNEL: %s \n", row[0], row[1]);
-
-	snprintf(sql, sizeof sql, "SELECT `monitor_data`.`ip`, `station_data`.`signal`, `station_data`.`time_rcv` \
-	                            FROM `station_data` \
-	                            LEFT JOIN `monitor_data` \
-	                            ON `station_data`.`mon_id` = `monitor_data`.`mon_id` \
-	                            WHERE `station_data`.`sta_id` = '%s'", row[0]);
-	sql_sub_result = mysql_getx(sql);
-
-	while ((sub_row = mysql_fetch_row(sql_sub_result)))
-	    {
-	    fprintf(message, "MONITOR: %s SIGNAL: -%s dBm TIME: %s\n", sub_row[0], sub_row[1], sub_row[2]);
-	    }
-	mysql_free_result(sql_sub_result);
-	}
-    else
-	{
-	fprintf(message, "Nincs a " MACSTR " MAC az adatbazisban \n", MAC2STR(in_mac));
-	}
-
-    mysql_free_result(sql_result);
-}
-
 void del_sta(char char_mac[CHARMACLEN])
 {
     char sql[512];

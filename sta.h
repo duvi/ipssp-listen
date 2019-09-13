@@ -2,8 +2,6 @@
 #define _STA_H_
 
 
-void show_sta(u_char in_mac[MACLEN]);			//Egy station kiirasa
-
 void del_sta(char char_mac[CHARMACLEN]);		//Station torlese
 
 void record_sta(char char_mac[CHARMACLEN]);		//Station rogzites kapcsolasa

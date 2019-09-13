@@ -113,19 +113,6 @@ int main(void)
 	    continue;
 	    }
 
-	if (strstr(buf, "show_sta"))
-	    {
-	    message=fopen("logs/position.log", "w");
-
-	    sscanf(buf, "%*s %12s ", char_mac);
-	    str2hex(char_mac, in_mac);
-	    show_sta(in_mac);
-	
-	    fclose(message);
-	    talk("done", ntohs(their_addr.sin_port));
-	    continue;
-	    }
-
 	if (strstr(buf, "del_sta"))
 	    {
 	    message=fopen("logs/position.log", "w");
