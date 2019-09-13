@@ -5,40 +5,6 @@
 #include "compare.h"
 #include <sys/stat.h>
 
-void list_sta(int sta_detail)			//Stationok listazasa
-{
-    char sql[512];
-    MYSQL_RES *sql_result;
-    MYSQL_RES *sql_sub_result;
-    MYSQL_ROW row;
-    MYSQL_ROW sub_row;
-
-    snprintf(sql, sizeof sql, "SELECT `sta_id`, `channel` FROM `station_list`");
-    sql_result = mysql_getx(sql);
-
-    while ((row = mysql_fetch_row(sql_result)))
-	{
-	fprintf(message, "STATION: %s CHANNEL: %s \n", row[0], row[1]);
-
-	if (sta_detail)
-	    {
-	    snprintf(sql, sizeof sql, "SELECT `monitor_data`.`ip`, `station_data`.`signal`, `station_data`.`time_rcv` \
-	                                FROM `station_data` \
-	                                LEFT JOIN `monitor_data` \
-	                                ON `station_data`.`mon_id` = `monitor_data`.`mon_id` \
-	                                WHERE `station_data`.`sta_id` = '%s'", row[0]);
-	    sql_sub_result = mysql_getx(sql);
-
-	    while ((sub_row = mysql_fetch_row(sql_sub_result)))
-		{
-		fprintf(message, "MONITOR: %s SIGNAL: -%s dBm TIME: %s\n", sub_row[0], sub_row[1], sub_row[2]);
-		}
-	    mysql_free_result(sql_sub_result);
-	    }
-	}
-    mysql_free_result(sql_result);
-}
-
 void show_sta(u_char in_mac[MACLEN])		//Egy station kiirasa
 {
     char sql[512];
